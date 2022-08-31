@@ -107,22 +107,14 @@ bs = np.array(boxsize)
 lg_bc = np.log(bc)
 lg_bs = np.log(bs)
 
+import scipy
 
-myfitting = np.polyfit(lg_bs,lg_bc, deg=1)
-
-from sklearn.metrics import r2_score
-coeff = myfitting[0]
-
-predict = np.poly1d(coeff)
-R2 = r2_score(y_values, predict(x_values))
-print(R2)
-
-
-b, a = np.polyfit(lg_bs,lg_bc, deg=1)
+slope, intercept, r_value, p_value, std_err = scipy.stats.linregress(lg_bs,lg_bc)
 
 plt.scatter(lg_bs, lg_bc)
 xseq = np.linspace(-10, 1, num=100)
-plt.plot(xseq, a + b * xseq, color="k", lw=2.5)
+plt.plot(xseq, intercept + slope * xseq, color="k", lw=2.5)
 plt.show()
 
+print(r_value)
 print('Dim Fractal = '+ str(b))
