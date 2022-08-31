@@ -108,6 +108,16 @@ lg_bc = np.log(bc)
 lg_bs = np.log(bs)
 
 
+myfitting = np.polyfit(lg_bs,lg_bc, deg=1)
+
+from sklearn.metrics import r2_score
+coeff = myfitting[0]
+
+predict = np.poly1d(coeff)
+R2 = r2_score(y_values, predict(x_values))
+print(R2)
+
+
 b, a = np.polyfit(lg_bs,lg_bc, deg=1)
 
 plt.scatter(lg_bs, lg_bc)
